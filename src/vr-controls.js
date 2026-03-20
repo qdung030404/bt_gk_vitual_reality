@@ -61,8 +61,8 @@ export function handleVRInteraction(renderer, camera, dolly, earthGroup) {
             const ry = axes[3] || 0; // Joystick Y
             
             // Xoay toàn bộ hệ thống mô phỏng
-            earthGroup.rotation.y += rx * 0.04;
-            earthGroup.rotation.x += ry * 0.04;
+            dolly.rotation.y += rx * 0.04;
+            dolly.rotation.x += ry * 0.04;
         }
         
         // TAY PHẢI (Handedness === 'right'): ZOOM (Dolly on Z)
