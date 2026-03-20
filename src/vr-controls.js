@@ -67,13 +67,18 @@ export function handleVRInteraction(renderer, camera, dolly, earthGroup) {
         
         // TAY PHẢI (Handedness === 'right'): ZOOM (Dolly on Z)
         if (source.handedness === 'right') {
-            const zoom = axes[3] || 0; // Joystick Y (lên/xuống)
-            
+            const zoom = axes[3] || 0;
+            const strafe = axes[2] || 0;
+
             const forward = new THREE.Vector3();
             camera.getWorldDirection(forward);
-            
-            // Dịch chuyển dolly theo hướng nhìn của camera
+
+            // Tính vector sang phải (right = forward × up)
+            const right = new THREE.Vector3();
+            right.crossVectors(forward, new THREE.Vector3(0, 1, 0)).normalize();
+
             dolly.position.addScaledVector(forward, -zoom * 0.1);
+            dolly.position.addScaledVector(right, strafe * 0.1);
         }
     }
 }
