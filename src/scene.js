@@ -12,6 +12,8 @@ export function initScene() {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(w, h);
     renderer.xr.enabled = true;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     
     document.body.appendChild(renderer.domElement);
     document.body.appendChild(VRButton.createButton(renderer));

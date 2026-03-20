@@ -1,5 +1,9 @@
 import * as THREE from 'three';
 import { getFresnelMat } from "./getFresnelMat.js";
+import earthDayMap from './assets/textures/earth_daymap.jpg';
+import earthNightMap from './assets/textures/earth_nightmap.jpg';
+import earthCloudsMap from './assets/textures/earth_clouds.jpg';
+import moonMap from './assets/textures/moon.jpg';
 
 export function createEarth(loader) {
     const earthGroup = new THREE.Group();
@@ -11,16 +15,18 @@ export function createEarth(loader) {
 
     // 1. Earth Map
     const material = new THREE.MeshStandardMaterial({
-        map: loader.load('/src/assets/textures/earth_daymap.jpg'),
+        map: loader.load(earthDayMap),
     });
     const earthMesh = new THREE.Mesh(geometry, material);
+    earthMesh.castShadow = true;
+    earthMesh.receiveShadow = true;
     earthGroup.add(earthMesh);
 
     // 2. Night Lights Shader
     const lightsMat = new THREE.ShaderMaterial({
         uniforms: {
             uSunPos: { value: new THREE.Vector3() },
-            uNightMap: { value: loader.load('/src/assets/textures/earth_nightmap.jpg') }
+            uNightMap: { value: loader.load(earthNightMap) }
         },
         vertexShader: `
             varying vec3 vNormal;
@@ -53,7 +59,7 @@ export function createEarth(loader) {
 
     // 3. Cloud Layer
     const cloudMat = new THREE.MeshStandardMaterial({
-        map: loader.load('/src/assets/textures/earth_clouds.jpg'),
+        map: loader.load(earthCloudsMap),
         transparent: true,
         opacity: 0.1,
         blending: THREE.AdditiveBlending,
@@ -73,9 +79,11 @@ export function createEarth(loader) {
     // kích thước mặt trăng khoảng bằng 1/4 trái đất nên để 0.27
     const moonGeometry = new THREE.IcosahedronGeometry(0.27, 12); 
     const moonMaterial = new THREE.MeshStandardMaterial({
-        map: loader.load('/src/assets/textures/moon.jpg'),
+        map: loader.load(moonMap),
     });
     const moonMesh = new THREE.Mesh(moonGeometry, moonMaterial);
+    moonMesh.castShadow = true;
+    moonMesh.receiveShadow = true;
     
     // Đặt khoảng cách mặt trăng cách tâm trái đất
     moonMesh.position.set(2.5, 0, 0); 
