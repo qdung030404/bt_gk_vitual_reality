@@ -77,17 +77,16 @@ export function createEarth(loader) {
     // 5. Thêm Mặt Trăng (Moon)
     const moonGroup = new THREE.Group();
     // kích thước mặt trăng khoảng bằng 1/4 trái đất nên để 0.27
-    const moonGeometry = new THREE.IcosahedronGeometry(0.27, 12); 
+    const moonGeometry = new THREE.IcosahedronGeometry(0.27, 12);
     const moonMaterial = new THREE.MeshStandardMaterial({
         map: loader.load(moonMap),
     });
     const moonMesh = new THREE.Mesh(moonGeometry, moonMaterial);
-    moonMesh.castShadow = true;
     moonMesh.receiveShadow = true;
-    
+
     // Đặt khoảng cách mặt trăng cách tâm trái đất
-    moonMesh.position.set(2.5, 0, 0); 
-    
+    moonMesh.position.set(2.5, 0, 0);
+
     moonGroup.add(moonMesh);
     earthGroup.add(moonGroup); // Thêm moonGroup vào earthGroup để nằm trong hệ thống Trái Đất
 
