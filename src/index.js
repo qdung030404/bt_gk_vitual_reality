@@ -30,6 +30,11 @@ scene.add(earth.earthGroup);
 // 4. Environment (Sun & Stars)
 const env = createEnvironment(scene, loader);
 
+// Tách Mặt Trăng ra khỏi Trái Đất để tạo quỹ đạo Nhật Thực (Solar Eclipse)
+scene.add(earth.moonGroup);
+// Xoay trục Z của quỹ đạo hướng thẳng vào Mặt Trời
+earth.moonGroup.lookAt(env.sunMesh.position);
+
 // 5. Controls
 new OrbitControls(camera, renderer.domElement);
 
@@ -92,7 +97,8 @@ function animate() {
     env.sunMesh.rotation.y += 0.001 * currentSpeed;
 
     if (earth.moonGroup) {
-        earth.moonGroup.rotation.y += 0.005 * currentSpeed; // Mặt trăng quay quanh Trái đất
+        // Dùng rotateY để quay quanh trục dọc cục bộ, giúp quét ngang qua Mặt Trời
+        earth.moonGroup.rotateY(0.005 * currentSpeed); 
         earth.moonMesh.rotation.y += 0.002 * currentSpeed; // Mặt trăng tự quay quanh trục
     }
 

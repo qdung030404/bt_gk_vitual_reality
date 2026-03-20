@@ -88,7 +88,8 @@ export function createEarth(loader) {
     moonMesh.position.set(2.5, 0, 0);
 
     moonGroup.add(moonMesh);
-    earthGroup.add(moonGroup); // Thêm moonGroup vào earthGroup để nằm trong hệ thống Trái Đất
+    // Không add moonGroup vào earthGroup nữa để điều khiển quỹ đạo Nhật Thực độc lập
+    // earthGroup.add(moonGroup); 
 
     return {
         earthGroup,
