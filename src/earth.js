@@ -82,14 +82,13 @@ export function createEarth(loader) {
         map: loader.load(moonMap),
     });
     const moonMesh = new THREE.Mesh(moonGeometry, moonMaterial);
+    earthMesh.castShadow = true;
     moonMesh.receiveShadow = true;
 
     // Đặt khoảng cách mặt trăng cách tâm trái đất
     moonMesh.position.set(2.5, 0, 0);
 
     moonGroup.add(moonMesh);
-    // Không add moonGroup vào earthGroup nữa để điều khiển quỹ đạo Nhật Thực độc lập
-    // earthGroup.add(moonGroup); 
 
     return {
         earthGroup,
