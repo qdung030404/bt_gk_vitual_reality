@@ -14,6 +14,15 @@ const dolly = new THREE.Group();
 dolly.add(camera);
 scene.add(dolly);
 
+// Khi đeo kính VR (Meta Quest), WebXR sẽ tự đặt camera về (0,0,0) local. 
+// Ta đẩy dolly lùi về z=5 để không đè lên Trái Đất ở (0,0,0).
+renderer.xr.addEventListener('sessionstart', () => {
+    dolly.position.set(0, 0, 5);
+});
+renderer.xr.addEventListener('sessionend', () => {
+    dolly.position.set(0, 0, 0); // Trả về cho OrbitControls trên PC
+});
+
 // 3. Earth Model
 const earth = createEarth(loader);
 scene.add(earth.earthGroup);
