@@ -42,9 +42,8 @@ export function setupVR(renderer, dolly, onSelectCallback) {
  * @param {THREE.WebGLRenderer} renderer 
  * @param {THREE.Camera} camera 
  * @param {THREE.Group} dolly - The camera rig
- * @param {THREE.Group} earthGroup - The simulation group to orbit
  */
-export function handleVRInteraction(renderer, camera, dolly, earthGroup) {
+export function handleVRInteraction(renderer, camera, dolly) {
     if (!renderer.xr.isPresenting) return;
     const session = renderer.xr.getSession();
     if (!session) return;
